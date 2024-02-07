@@ -81,8 +81,8 @@ eSceneType TitleScene::Update()
 }
 
 //描画処理
-Void TitleScene::Draw() const
-
+void TitleScene::Draw() const
+{
 //タイトル画面の描画
 DrawGraph(0, 0, background_image, FALSE);
 
@@ -97,13 +97,13 @@ DrawRotaGraph(90, 200 + menu_cursor * 40, 0.7, DX_PI / 2.0, cursor_image, TRUE);
 void TitleScene::Finalize()
 {
 	//読み込んだ画像の処理
-	DeleteGraph(backGround_image);
+	DeleteGraph(background_image);
 	DeleteGraph(menu_image);
 	DeleteGraph(cursor_image);
 }
 
 //現在のシーン情報を取得
-eSceneType TitleScene::GetNowSccene() const
+eSceneType TitleScene::GetNowScene() const
 {
 	return eSceneType::E_TITLE;
 }

@@ -3,10 +3,10 @@
 #include "SceneBase.h"
 #include "../Object/RankingData.h"
 
-class RankinglnputScene : public SceneBase
+class RankingInputScene : public SceneBase
 {
 private:
-	int backgroud_image;  //背景画像
+	int background_image;  //背景画像
 	RankingData* ranking;  //ランキング情報
 	int score;             //スコア
 	char name[15];         //名前
@@ -15,8 +15,8 @@ private:
 	int cursor_y;   //カーソルｙ座標
 
 public:
-	RankinglnputScene();
-	virtual ~RankinglnputScene();
+	RankingInputScene();
+	virtual ~RankingInputScene();
 
 	virtual void Initialize() override;
 	virtual eSceneType Update() override;
