@@ -7,9 +7,10 @@ class Player
 	bool is_active;    //有効状態か？
 	int image;    //画像データー
 	Vector2D location;  //位置座標
-	Vector2D box_size;  //当たり判定の大きさ
-	float speed;  //角度
-	float hp;    //速さ
+	Vector2D box_size;//当たり判定の大きさ
+	float angle;//角度
+	float speed; //速さ
+	float hp;    //t体力
 	float fuel;  //燃料
 	int barrier_count;  //バリアの枚数
 	Barrier* barrier;  //バリア
@@ -30,7 +31,7 @@ public:
 	Vector2D GetBoxSize()const;  //当たり判定の大きさ取得
 	float GetSpeed() const;   //速さ取得処理
 	float GetFuel() const;   //燃料取得
-	float GetFuel() const;  //体力取得
+	float GetHp() const;  //体力取得
 	int GetBarriarCount() const;  //バリアの枚数取得
 	bool IsBarrier() const; //バリア有効か？を取得
 

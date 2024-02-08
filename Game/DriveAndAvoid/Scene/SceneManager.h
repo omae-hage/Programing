@@ -3,10 +3,10 @@
 #include "SceneBase.h"
 
 //固定化するフレームレート血
-#define TARGRT_FREAM_RATE (60)
+#define TARGET_FREAM_RATE (60)
 //1フレーム当たりの時間(マイクロ秒)
-#define DELTA_SECOND  (1000000 / TARGET_FREAM_RATE)
-
+#define DELTA_SECOND         (1000000 / TARGET_FREAM_RATE)
+                    
 //シーンマネージャークラス
 class SceneManager
 {

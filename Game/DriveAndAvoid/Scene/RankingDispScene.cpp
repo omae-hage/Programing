@@ -62,10 +62,10 @@ void RankingDispScene::Finalize()
 	//動的メモリの開放
 	ranking->Finalize();
 	delete ranking;
-
+ }
 	//現在ンおシーン情報を取得
-	eSceneType RankingDispScene::GetNowScene() const
-	{
-		return eSceneType::E_RANKING_DISP;
-	}
+eSceneType RankingDispScene::GetNowScene() const
+{
+	return eSceneType::E_RANKING_DISP;
+
 }

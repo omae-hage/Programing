@@ -3,14 +3,14 @@
 #include "DxLib.h"
 #include <math.h>
 
-GameMainScene::GameMainScene() : high_score(0), back_ground(NULL), barrier_image(NULL), mileage(0), player(nullptr),
+GameMainScene::GameMainScene(): high_score(0), back_ground(NULL),barrier_image(NULL), mileage(0), player(nullptr),
 
 enemy(nullptr)
 {
 	for (int i = 0; i < 3; i++)
 	{
 		enemy_image[i] = NULL;
-		enemy_count[i] = NULL;
+		enemy_count[i] = 0;
 	}
 }
 
@@ -27,7 +27,7 @@ void GameMainScene::Initialize()
 
 	//画像の読み込み
 	back_ground = LoadGraph("Resource/images/back.bmp");
-	barrier_image = LoadGraph("Resource / images / barrier.pug");
+	barrier_image = LoadGraph("Resource/images/barrier.png");
 	int result = LoadDivGraph("Resource/images/car.bmp", 3, 3, 1, 63, 120, enemy_image);
 
 	//エラーチェック
@@ -63,7 +63,7 @@ void GameMainScene::Initialize()
 eSceneType GameMainScene::Update()
 {
 	//プレイヤーの更新
-	player->Updaate();
+	player-> Update();
 	
 	//移動距離の更新
 	mileage += (int)player->GetSpeed
@@ -164,14 +164,15 @@ void GameMainScene::Draw() const
 	float fx = 510.0f;
 	float fy = 390.0f;
 	DrawFormatString(fx, fy, GetColor(0, 0, 0), "FUEL METER");
-	DrawBoxAA(fx, fy + 20.0f, fx + (player->GetFuel() * 100 / 20000), fy + 40.0f, GetColor(0, 102, 204), TRUE);
+	DrawBoxAA(fx, fy + 20.0f, fx + (player->GetFuel() * 100 / 20000),fy + 40.0f, GetColor(0, 102, 204), TRUE);
 	DrawBoxAA(fx, fy + 20.0f, fx + 100.0f, fy + 40.0f, GetColor(0, 0, 0), FALSE);
 
 	//体力ゲージの描画
 	fx = 510.0f;
 	fy = 430.0f;
 	DrawFormatString(fx, fy, GetColor(0, 0, 0), "PLAYER HP");
-	DrawBoxAA(fx, fy + 20.0f, fx + (player->GetHp() * 100 /1000), fy + 40.0f, GetColor(0, 102, 204), TRUE);
+	DrawBoxAA(fx, fy + 20.0f, fx + (player->GetHp() * 100 /1000), 
+		fy + 40.0f, GetColor(255,0,0), TRUE);
 	DrawBoxAA(fx, fy + 20.0f, fx + 100.0f, fy + 40.0f, GetColor(0, 0, 0), FALSE);
 }
 //修了時処理
@@ -186,7 +187,7 @@ void GameMainScene::Finalize()
 	//リザルトデータの書き込み
 	FILE* fp = nullptr;
 	//ファイルオープン
-	errno_t resullt = fopen_s(&fp, "Resource/dat/result_data.csv", "w");
+	errno_t result = fopen_s(&fp, "Resource/dat/result_data.csv", "w");
 
 	//エラーチェック
 	if (result != 0)
@@ -200,7 +201,7 @@ void GameMainScene::Finalize()
 	//避けた数と得点を保存
 	for (int i = 0; i<3;i++)
 	{
-		fprintf(fp, "%d,\n,enemy_count[i]");
+		fprintf(fp, "%d,\n",enemy_count[i]);
 	}
 
 	//ファイルクローズ
@@ -208,7 +209,7 @@ void GameMainScene::Finalize()
 
 	//動的確保したオブジェクトを消去する
 	player->Finalize();
-	delete plalyer;
+	delete player;
 
 	for (int i = 0; i < 10; i++)
 	{
@@ -240,6 +241,12 @@ void GameMainScene::ReadHighScore()
 bool GameMainScene::IsHitCheck(Player* p, Enemy* e)
 {
 	//プレイヤーがバリアを這っていたら、当たり判定を無視する
+	if (p->IsBarrier())
+	{
+		return false;
+	}
+
+	//敵情報がなければ、当たり判定を無視する
 	if (e == nullptr)
 	{
 		return false;

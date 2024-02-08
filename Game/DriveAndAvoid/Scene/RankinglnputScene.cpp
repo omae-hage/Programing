@@ -44,7 +44,7 @@ void RankingInputScene::Initialize()
 	}
 
 	//結果を読み込む
-	fscanf_s(fp, "%6d,\n,$score");
+	fscanf_s(fp, "%6d,\n",&score);
 
 	//ファイルクローズ
 	fclose(fp);
@@ -87,9 +87,9 @@ void RankingInputScene::Draw() const
 	{
 		int x = (i % 13) * font_size + 15;
 		int y = (i / 13) * font_size + 300;
-		DrawFormatString(x, y, GetColor(255, 255, 255), " % -3c", 'a' + 1);
+		DrawFormatString(x, y, GetColor(255, 255, 255), "%-3c ", 'a' + i);
 		y = ((i / 13) + 2) * font_size + 300;
-		DrawFormatString(x, y, GetColor(255, 255, 255), "%-3c", 'A' + 1);
+		DrawFormatString(x, y, GetColor(255, 255, 255),"%-3c", 'A' + i);
 	}
 	DrawString(40, 405, "決定", GetColor(255, 255, 255));
 	DrawString(40 + font_size * 2, 405, "消す", GetColor(255, 255, 255));
@@ -109,7 +109,7 @@ void RankingInputScene::Draw() const
 		}
 		else
 		{
-			DrawBox(0, 0, font_size, font_size, GetColor(255, 255, 255), FALSE);
+			DrawBox(80,400, 80+font_size*2, 400+font_size, GetColor(255, 255, 255), FALSE);
 		}
 	  }
 	}
@@ -120,10 +120,10 @@ void RankingInputScene::Finalize()
 	ranking ->SetRankingData(score, name);
 
 	//読み込んだ画像を削除
-	DeleteGrah(background_image);
+	DeleteGraph(background_image);
 
 	//動的メモリの解放
-	delite ranking;
+	delete ranking;
 }
 
 //現在のシーン情報を取得
@@ -207,7 +207,7 @@ bool RankingInputScene::InputName()
 			}
 			else
 			{
-				name[name_num--] = NULL;
+				name[--name_num] = NULL;
 			}
 		}
 	}

@@ -17,7 +17,8 @@ public:
 
 	void Initialize();  //初期化処理
 	void Update(float speed);  //更新処理
-	void Ffinalize();  //修了時処理
+	void Draw() const;
+	void Finalize();  //修了時処理
 
 	int GetType() const;   //タイプ
 	Vector2D GetLocation() const;  //位置情報の取得

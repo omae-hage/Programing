@@ -16,8 +16,8 @@ TitleScene::~TitleScene()
 void TitleScene::Initialize()
 {
 	//画像の読み込み
-	background_image = LoadGraph("Recource/images/Title.bmp");
-	menu_image = LoadGraph("Recource/images/munu.bmp");
+	background_image = LoadGraph("Resource/images/Title.bmp");
+	menu_image = LoadGraph("Resource/images/menu.bmp");
 	cursor_image = LoadGraph("Resource/images/cone.bmp");
 
 	//エラーチェック
@@ -90,7 +90,7 @@ DrawGraph(0, 0, background_image, FALSE);
 DrawGraph(120, 200, menu_image, TRUE);
 
 //カーソル画像の描画
-DrawRotaGraph(90, 200 + menu_cursor * 40, 0.7, DX_PI / 2.0, cursor_image, TRUE);
+DrawRotaGraph(90, 220 + menu_cursor * 40, 0.7, DX_PI / 2.0, cursor_image, TRUE);
 }
 
 //終了時処理

@@ -13,13 +13,13 @@ void InputControl::Update()
 	//XIputコントローラーの入力値を取得する
 	XINPUT_STATE input_state = {};
 	GetJoypadXInputState(DX_INPUT_PAD1, &input_state);
-}
+
 
 //ボタン入力値の更新
  for (int i = 0; i < 16; i++)
 {
 	 old_button[i] = now_button[i];
-	 now_buttton[i] = (bool)input_state.Buttons[i];
+	 now_button[i] = (bool)input_state.Buttons[i];
 }
 
  //トリガー入力値の更新(0.0f～1.0fに範囲を制限する)
@@ -41,11 +41,11 @@ void InputControl::Update()
  }
  else
  {
-	 stick[0].y = -((float)input_state.ThumvLY / (float)SHRT_MIN);
+	 stick[0].y = -((float)input_state.ThumbLY / (float)SHRT_MIN);
  }
 
  //左スティック入力値の更新 (-1.0f~1.0fにはんいを制限する)
- if (input_state.ThumbRx > 0.0f)
+ if (input_state.ThumbRX > 0.0f)
  {
 	 stick[0].x = (float)input_state.ThumbLX / (float)SHRT_MAX;
  }
